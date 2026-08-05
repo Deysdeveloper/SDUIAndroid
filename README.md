@@ -1,6 +1,6 @@
-# Cars24 SDUI Assignment
+# SDUI Implementation
 
-An Android app demonstrating **Server-Driven UI (SDUI)** for the Cars24 home screen, built with Jetpack Compose and Hilt. The app lets you compare a fully JSON-driven screen side-by-side with a traditional hardcoded screen.
+An Android app demonstrating **Server-Driven UI (SDUI)** built with Jetpack Compose and Hilt. The app lets you compare a fully JSON-driven screen side-by-side with a traditional hardcoded screen.
 
 ---
 
