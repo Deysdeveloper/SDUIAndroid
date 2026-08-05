@@ -1,0 +1,369 @@
+{
+  "screen_id": "home",
+  "screen_version": "1.0.0",
+  "components": [
+    {
+      "id": "header_1",
+      "type": "header",
+      "props": {
+        "location": "Bangalore",
+        "location_selectable": true,
+        "search_hint": "Search Alto",
+        "avatar_text": "DD",
+        "action": {
+          "type": "navigate",
+          "destination": "search_screen"
+        }
+      }
+    },
+    {
+      "id": "category_tabs_1",
+      "type": "category_tab_bar",
+      "props": {
+        "default_selected": "all",
+        "tabs": [
+          {
+            "id": "all",
+            "label": "All",
+            "icon_url": "ic_all_grid"
+          },
+          {
+            "id": "buy",
+            "label": "Buy used car",
+            "icon_url": "ic_car"
+          },
+          {
+            "id": "sell",
+            "label": "Sell car",
+            "icon_url": "ic_key"
+          },
+          {
+            "id": "loans",
+            "label": "Loans",
+            "icon_url": "ic_moneybag"
+          }
+        ],
+        "action": {
+          "type": "filter_sections",
+          "target_ids": ["buy_section", "sell_section", "loan_section"]
+        }
+      }
+    },
+    {
+      "id": "featured_car_1",
+      "type": "featured_car_card",
+      "props": {
+        "tag": "BUY USED CAR",
+        "title": "High demand for the car you viewed · 2024 Thar Roxx",
+        "subtitle": "Inspected · Certified · Best Price",
+        "image_url": "https://cdn.cars24.com/thar_roxx.png",
+        "price": "₹18.79 Lakh",
+        "specs": ["33,613 km", "Diesel", "Auto"],
+        "cta_text": "Book FREE test drive",
+        "action": {
+          "type": "navigate",
+          "destination": "car_detail",
+          "params": { "car_id": "thar_roxx_001" }
+        }
+      }
+    },
+    {
+      "id": "buy_section",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Buy car",
+        "badge": "Up to ₹80,000 off",
+        "badge_color": "#E63946",
+        "scroll_direction": "horizontal",
+        "cards": [
+          {
+            "id": "all_used",
+            "label": "All used cars",
+            "image_url": "https://cdn.cars24.com/all_used.png",
+            "bg_color": "#1B2B8A",
+            "action": {
+              "type": "navigate",
+              "destination": "car_listing",
+              "params": { "filter": "all" }
+            }
+          },
+          {
+            "id": "budget_used",
+            "label": "Budget used cars",
+            "image_url": "https://cdn.cars24.com/budget.png",
+            "bg_color": "#1B2B8A",
+            "action": {
+              "type": "navigate",
+              "destination": "car_listing",
+              "params": { "filter": "budget" }
+            }
+          },
+          {
+            "id": "premium_used",
+            "label": "Premium used cars",
+            "image_url": "https://cdn.cars24.com/premium.png",
+            "bg_color": "#1B2B8A",
+            "action": {
+              "type": "navigate",
+              "destination": "car_listing",
+              "params": { "filter": "premium" }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sell_section",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Sell your car",
+        "scroll_direction": "horizontal",
+        "cards": [
+          {
+            "id": "sell_car",
+            "label": "Sell your car",
+            "image_url": "https://cdn.cars24.com/sell.png",
+            "bg_color": "#1B6B4A",
+            "action": { "type": "navigate", "destination": "sell_flow" }
+          },
+          {
+            "id": "check_valuation",
+            "label": "Check car valuation",
+            "image_url": "https://cdn.cars24.com/valuation.png",
+            "bg_color": "#1B6B4A",
+            "action": { "type": "navigate", "destination": "valuation" }
+          },
+          {
+            "id": "scrap_car",
+            "label": "Scrap your car",
+            "image_url": "https://cdn.cars24.com/scrap.png",
+            "bg_color": "#1B6B4A",
+            "action": { "type": "navigate", "destination": "scrap_flow" }
+          }
+        ]
+      }
+    },
+    {
+      "id": "loan_section",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Get loans",
+        "scroll_direction": "horizontal",
+        "card_style": "icon_label",
+        "cards": [
+          {
+            "id": "used_car_loan",
+            "label": "Used car loan",
+            "image_url": "https://cdn.cars24.com/loan1.png",
+            "action": { "type": "navigate", "destination": "loan_detail", "params": { "type": "used_car" } }
+          },
+          {
+            "id": "loan_against_car",
+            "label": "Loan against car",
+            "image_url": "https://cdn.cars24.com/loan2.png",
+            "action": { "type": "navigate", "destination": "loan_detail", "params": { "type": "against_car" } }
+          },
+          {
+            "id": "personal_loan",
+            "label": "Personal loan",
+            "image_url": "https://cdn.cars24.com/loan3.png",
+            "action": { "type": "navigate", "destination": "loan_detail", "params": { "type": "personal" } }
+          },
+          {
+            "id": "credit_score",
+            "label": "Credit score",
+            "image_url": "https://cdn.cars24.com/credit.png",
+            "action": { "type": "navigate", "destination": "credit_score" }
+          }
+        ]
+      }
+    },
+    {
+      "id": "services_grid_1",
+      "type": "service_grid",
+      "props": {
+        "title": "Car check services",
+        "columns": 3,
+        "items": [
+          {
+            "id": "pdi",
+            "label": "New car PDI",
+            "image_url": "https://cdn.cars24.com/pdi.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "pdi" } }
+          },
+          {
+            "id": "used_check",
+            "label": "Used car check",
+            "image_url": "https://cdn.cars24.com/used_check.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "used_check" } }
+          },
+          {
+            "id": "vehicle_history",
+            "label": "Vehicle history",
+            "image_url": "https://cdn.cars24.com/history.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "history" } }
+          },
+          {
+            "id": "challan",
+            "label": "Check challan",
+            "image_url": "https://cdn.cars24.com/challan.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "challan" } }
+          },
+          {
+            "id": "insurance",
+            "label": "Check car insurance",
+            "image_url": "https://cdn.cars24.com/insurance.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "insurance" } }
+          },
+          {
+            "id": "odometer",
+            "label": "Odometer tampering",
+            "image_url": "https://cdn.cars24.com/odometer.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "odometer" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "car_listing_tabs_1",
+      "type": "tabbed_car_listing",
+      "props": {
+        "title": "Used cars you'll love",
+        "view_all_action": { "type": "navigate", "destination": "car_listing" },
+        "default_tab": "recently_viewed",
+        "tabs": [
+          {
+            "id": "recently_viewed",
+            "label": "Recently viewed",
+            "cars": [
+              {
+                "id": "thar_001",
+                "name": "2024 Mahindra Thar Roxx",
+                "subtitle": "AX5 L Diesel AT 2WD",
+                "specs": ["33,613 km", "Diesel", "Auto", "KA01"],
+                "price": "₹18.79 lakh",
+                "emi": "₹32,180/m*",
+                "badge": "Cars24 Owned stock",
+                "image_url": "https://cdn.cars24.com/thar_roxx.png",
+                "action": { "type": "navigate", "destination": "car_detail", "params": { "car_id": "thar_001" } }
+              }
+            ]
+          },
+          {
+            "id": "hot_deals",
+            "label": "Hot deals",
+            "cars": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "showroom_rail_1",
+      "type": "showroom_rail",
+      "props": {
+        "title": "7 showrooms in your city",
+        "showrooms": [
+          {
+            "id": "showroom_001",
+            "name": "Right Parking MLCP",
+            "location": "Gandhi Nagar, Bengaluru",
+            "distance": "2.7 km from MG Road",
+            "cars_count": "90+ cars",
+            "image_url": "https://cdn.cars24.com/showroom1.png",
+            "status": "closing_soon",
+            "closes_at": "08:00 PM",
+            "actions": [
+              { "type": "call", "label": "Call us now", "phone": "+918001234567" },
+              { "type": "navigate", "label": "View showroom", "destination": "showroom_detail", "params": { "id": "showroom_001" } }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "trending_cars_1",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Trending new cars",
+        "view_all_action": { "type": "navigate", "destination": "trending_cars" },
+        "scroll_direction": "horizontal",
+        "card_style": "trending_ranked",
+        "cards": [
+          {
+            "id": "seltos",
+            "label": "Seltos",
+            "sublabel": "Kia",
+            "rank": 1,
+            "image_url": "https://cdn.cars24.com/seltos.png",
+            "action": { "type": "navigate", "destination": "car_detail", "params": { "car_id": "seltos" } }
+          },
+          {
+            "id": "sonet",
+            "label": "Sonet",
+            "sublabel": "Kia",
+            "rank": 2,
+            "image_url": "https://cdn.cars24.com/sonet.png",
+            "action": { "type": "navigate", "destination": "car_detail", "params": { "car_id": "sonet" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "promo_banner_1",
+      "type": "promo_banner_carousel",
+      "props": {
+        "auto_scroll": true,
+        "interval_ms": 3000,
+        "banners": [
+          {
+            "id": "return_guarantee",
+            "title": "30 Day Return Guarantee",
+            "subtitle": "We take it back as easily as we deliver it",
+            "image_url": "https://cdn.cars24.com/30day.png",
+            "cta_text": "Know more",
+            "bg_color": "#1B2B8A",
+            "action": { "type": "navigate", "destination": "return_policy" }
+          },
+          {
+            "id": "crashfree",
+            "tag": "CRASHFREE INDIA",
+            "title": "Control. Judgment. Patience.",
+            "subtitle": "India drives safer with M.S Dhoni",
+            "image_url": "https://cdn.cars24.com/dhoni.png",
+            "cta_text": "Explore now",
+            "bg_color": "#2B3BA0",
+            "action": { "type": "navigate", "destination": "crashfree_campaign" }
+          }
+        ]
+      }
+    },
+    {
+      "id": "recommended_banner_1",
+      "type": "featured_car_card",
+      "props": {
+        "tag": "Recommended",
+        "title": "Let us find your match",
+        "subtitle": "Answer a few simple questions and get your perfect car match in 60 seconds.",
+        "image_url": "https://cdn.cars24.com/match.png",
+        "cta_text": "Find my perfect match",
+        "action": { "type": "navigate", "destination": "car_match_quiz" }
+      }
+    },
+    {
+      "id": "brand_footer_1",
+      "type": "brand_footer",
+      "props": {
+        "headline": "better drives, better lives",
+        "subtext": "Made with ❤️ in Gurugram",
+        "bg_color": "#3D3FD8"
+      }
+    },
+    {
+      "id": "unknown_test_component",
+      "type": "new_feature_not_yet_built",
+      "props": {
+        "some_future_prop": "value"
+      }
+    }
+  ]
+}
