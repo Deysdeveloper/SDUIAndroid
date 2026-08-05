@@ -34,16 +34,18 @@ import coil.compose.AsyncImage
 import com.deysdeveloper.cars24sduiassignment.data.model.Action
 import com.deysdeveloper.cars24sduiassignment.data.model.props.HeaderProps
 
-private val Cars24Red = Color(0xFFE31837)
-private val SearchBg = Color(0xFFF5F5F5)
+val Cars24Blue = Color(0xFF3535D4)
+private val SearchBg = Color(0x33FFFFFF)   // white 20% on blue bg
+private val SearchBgOpaque = Color(0xFFEEEEF8) // for contrast on blue
 
 @Composable
 fun HeaderComponent(props: HeaderProps, onAction: (Action) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White)
-            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .background(Cars24Blue)
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp, bottom = 12.dp)
     ) {
         // Row 1: Location + Avatar
         Row(
@@ -56,36 +58,44 @@ fun HeaderComponent(props: HeaderProps, onAction: (Action) -> Unit) {
                 modifier = Modifier
                     .clip(RoundedCornerShape(4.dp))
                     .clickable { props.locationAction?.let(onAction) }
-                    .padding(vertical = 4.dp),
+                    .padding(vertical = 2.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(
-                    imageVector = Icons.Filled.LocationOn,
-                    contentDescription = "Location",
-                    tint = Cars24Red,
-                    modifier = Modifier.size(18.dp)
-                )
-                Spacer(modifier = Modifier.width(4.dp))
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.2f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.LocationOn,
+                        contentDescription = "Location",
+                        tint = Color.White,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = props.location,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = Color.White
                 )
                 Icon(
                     imageVector = Icons.Filled.KeyboardArrowDown,
                     contentDescription = "Change location",
-                    tint = Color.Black,
+                    tint = Color.White,
                     modifier = Modifier.size(20.dp)
                 )
             }
 
-            // Avatar
+            // Avatar circle with initials
             Box(
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(38.dp)
                     .clip(CircleShape)
-                    .background(Cars24Red)
+                    .background(Color.White.copy(alpha = 0.25f))
                     .clickable { props.avatarAction?.let(onAction) },
                 contentAlignment = Alignment.Center
             ) {
@@ -94,43 +104,45 @@ fun HeaderComponent(props: HeaderProps, onAction: (Action) -> Unit) {
                         model = props.avatarUrl,
                         contentDescription = "Profile",
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.size(36.dp).clip(CircleShape)
+                        modifier = Modifier
+                            .size(38.dp)
+                            .clip(CircleShape)
                     )
                 } else {
                     Text(
-                        text = "U",
+                        text = "DD",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 14.sp
+                        fontSize = 13.sp
                     )
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         // Row 2: Search bar
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(44.dp)
-                .clip(RoundedCornerShape(8.dp))
-                .background(SearchBg)
+                .height(46.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color.White)
                 .clickable { props.searchAction?.let(onAction) }
-                .padding(horizontal = 12.dp),
+                .padding(horizontal = 14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 imageVector = Icons.Filled.Search,
                 contentDescription = "Search",
-                tint = Color.Gray,
+                tint = Color(0xFF9E9E9E),
                 modifier = Modifier.size(20.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(10.dp))
             Text(
                 text = props.searchHint,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray
+                color = Color(0xFF9E9E9E)
             )
         }
     }

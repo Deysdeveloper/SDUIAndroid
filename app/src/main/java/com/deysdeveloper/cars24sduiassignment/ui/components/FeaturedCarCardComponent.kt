@@ -1,6 +1,7 @@
 package com.deysdeveloper.cars24sduiassignment.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,13 +10,13 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -33,9 +34,10 @@ import coil.compose.AsyncImage
 import com.deysdeveloper.cars24sduiassignment.data.model.Action
 import com.deysdeveloper.cars24sduiassignment.data.model.props.FeaturedCarCardProps
 
-private val Cars24Red = Color(0xFFE31837)
-private val ChipBg = Color(0xFFF5F5F5)
-private val ChipText = Color(0xFF555555)
+private val ChipBg = Color(0xFFF0F0F0)
+private val ChipBorder = Color(0xFFDDDDDD)
+private val PriceBadge = Color(0xFF2E7D32)
+private val CategoryLabel = Color(0xFF3535D4)
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -46,112 +48,101 @@ fun FeaturedCarCardComponent(props: FeaturedCarCardProps, onAction: (Action) -> 
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable { props.action?.let(onAction) },
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Column {
-            // Car image
-            Box {
+        // "BUY USED CAR" category label
+        Text(
+            text = "BUY USED CAR",
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            color = CategoryLabel,
+            letterSpacing = 1.sp,
+            modifier = Modifier.padding(start = 14.dp, top = 12.dp, bottom = 6.dp)
+        )
+
+        // Split row: image left, content right
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 14.dp)
+                .padding(bottom = 14.dp),
+            verticalAlignment = Alignment.Top
+        ) {
+            // Left: car image + price badge
+            Box(modifier = Modifier.width(130.dp)) {
                 AsyncImage(
                     model = props.imageUrl,
                     contentDescription = props.title,
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
+                        .width(130.dp)
+                        .height(90.dp)
                 )
-
-                // "Personalised for you" tag
+                // Price badge at bottom of image
                 Box(
                     modifier = Modifier
-                        .padding(12.dp)
-                        .align(Alignment.TopStart)
+                        .align(Alignment.BottomStart)
                         .clip(RoundedCornerShape(4.dp))
-                        .background(Cars24Red)
-                        .padding(horizontal = 8.dp, vertical = 3.dp)
+                        .background(PriceBadge)
+                        .padding(horizontal = 8.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = "Personalised for you",
+                        text = "₹ ${props.price}",
                         color = Color.White,
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
 
-            Column(modifier = Modifier.padding(14.dp)) {
-                // Title
+            Spacer(modifier = Modifier.width(12.dp))
+
+            // Right: title + subtitle + chips + CTA
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = props.title,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = Color.Black,
+                    lineHeight = 18.sp
                 )
 
-                Spacer(modifier = Modifier.height(6.dp))
+                Spacer(modifier = Modifier.height(2.dp))
+
+                Text(
+                    text = "Inspected · Certified · Best Price",
+                    fontSize = 11.sp,
+                    color = Color.Gray
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
 
                 // Spec chips
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     props.chips.forEach { chip ->
-                        SpecChip(label = chip)
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .border(1.dp, ChipBorder, RoundedCornerShape(4.dp))
+                                .background(ChipBg)
+                                .padding(horizontal = 7.dp, vertical = 3.dp)
+                        ) {
+                            Text(text = chip, fontSize = 10.sp, color = Color(0xFF444444))
+                        }
                     }
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
-                // Price + CTA row
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column {
-                        Text(
-                            text = "Price",
-                            fontSize = 11.sp,
-                            color = Color.Gray
-                        )
-                        Text(
-                            text = props.price,
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
-                        )
-                    }
-
-                    Button(
-                        onClick = { props.action?.let(onAction) },
-                        colors = ButtonDefaults.buttonColors(containerColor = Cars24Red),
-                        shape = RoundedCornerShape(8.dp),
-                        modifier = Modifier.width(140.dp).height(42.dp)
-                    ) {
-                        Text(
-                            text = props.ctaLabel,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color.White
-                        )
-                    }
-                }
+                // CTA link
+                Text(
+                    text = props.ctaLabel,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = CategoryLabel
+                )
             }
         }
-    }
-}
-
-@Composable
-private fun SpecChip(label: String) {
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(4.dp))
-            .background(ChipBg)
-            .padding(horizontal = 8.dp, vertical = 4.dp)
-    ) {
-        Text(
-            text = label,
-            fontSize = 11.sp,
-            color = ChipText,
-            fontWeight = FontWeight.Medium
-        )
     }
 }

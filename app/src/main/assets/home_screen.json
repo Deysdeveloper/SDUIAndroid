@@ -329,6 +329,51 @@
       }
     },
     {
+      "id": "manage_vehicle_1",
+      "type": "service_grid",
+      "props": {
+        "title": "Manage your vehicle",
+        "services": [
+          {
+            "id": "mv_challan",
+            "label": "Pay challan",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/1828/1828490.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "pay_challan" } }
+          },
+          {
+            "id": "mv_fastag",
+            "label": "Recharge FASTag",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/3209/3209265.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "fastag" } }
+          },
+          {
+            "id": "mv_insurance",
+            "label": "Get insurance",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/2271/2271057.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "insurance" } }
+          },
+          {
+            "id": "mv_cash",
+            "label": "Cash against car",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/2830/2830284.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "cash_against_car" } }
+          },
+          {
+            "id": "mv_roadside",
+            "label": "Road side assistance",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/616/616408.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "roadside" } }
+          },
+          {
+            "id": "mv_warranty",
+            "label": "Get warranty",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/190/190411.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "warranty" } }
+          }
+        ]
+      }
+    },
+    {
       "id": "showroom_rail_1",
       "type": "showroom_rail",
       "props": {
@@ -414,7 +459,7 @@
       "type": "brand_footer",
       "props": {
         "text": "better drives, better lives",
-        "backgroundColor": "#E31837",
+        "backgroundColor": "#3535D4",
         "textColor": "#FFFFFF"
       }
     },

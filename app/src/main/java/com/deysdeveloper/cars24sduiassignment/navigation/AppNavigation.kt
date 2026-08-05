@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.deysdeveloper.cars24sduiassignment.ui.screen.HomeScreen
 
 object Routes {
     const val HOME = "home"
@@ -31,8 +32,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         composable(Routes.HOME) {
-            // HomeScreen wired here
-            PlaceholderScreen("Home")
+            HomeScreen(navController = navController)
         }
         composable(Routes.BUY_USED_CAR) { PlaceholderScreen("Buy Used Car") }
         composable(Routes.SELL_CAR) { PlaceholderScreen("Sell Car") }

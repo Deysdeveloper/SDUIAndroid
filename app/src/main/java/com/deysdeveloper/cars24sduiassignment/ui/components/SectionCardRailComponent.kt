@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -33,7 +36,13 @@ import com.deysdeveloper.cars24sduiassignment.data.model.Action
 import com.deysdeveloper.cars24sduiassignment.data.model.props.SectionCard
 import com.deysdeveloper.cars24sduiassignment.data.model.props.SectionCardRailProps
 
-private val Cars24Red = Color(0xFFE31837)
+// Card background colours mirror the real Cars24 sections
+private val BuyCardBg = Color(0xFF1A237E)   // deep blue for Buy car
+private val SellCardBg = Color(0xFF1B5E20)  // deep green for Sell car
+private val LoanCardBg = Color(0xFF0D47A1)  // mid blue for Loans
+private val DefaultCardBg = Color(0xFF3535D4)
+
+private val OfferTagBg = Color(0xFFE31837)
 
 /**
  * Reusable horizontal card rail — used for Buy car, Sell car, Loans,
@@ -41,78 +50,106 @@ private val Cars24Red = Color(0xFFE31837)
  */
 @Composable
 fun SectionCardRailComponent(props: SectionCardRailProps, onAction: (Action) -> Unit) {
+    // Pick card background colour by section title keyword
+    val cardBg = when {
+        props.title.contains("buy", ignoreCase = true) ||
+        props.title.contains("trending", ignoreCase = true) -> BuyCardBg
+        props.title.contains("sell", ignoreCase = true) -> SellCardBg
+        props.title.contains("loan", ignoreCase = true) -> LoanCardBg
+        else -> DefaultCardBg
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
             .padding(vertical = 12.dp)
     ) {
-        // Section title
-        Text(
-            text = props.title,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
+        // Section title row
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = props.title,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+        }
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // Horizontal scrolling cards
         LazyRow(
             contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(props.cards, key = { it.id }) { card ->
-                SectionCardItem(card = card, onAction = onAction)
+                SectionCardItem(card = card, cardBg = cardBg, onAction = onAction)
             }
         }
     }
 }
 
 @Composable
-private fun SectionCardItem(card: SectionCard, onAction: (Action) -> Unit) {
+private fun SectionCardItem(card: SectionCard, cardBg: Color, onAction: (Action) -> Unit) {
     Card(
         modifier = Modifier
             .width(140.dp)
+            .height(110.dp)
             .clickable { card.action?.let(onAction) },
-        shape = RoundedCornerShape(10.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column {
-            // Card image
+        Box(modifier = Modifier.fillMaxSize()) {
+            // Coloured background
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(cardBg)
+            )
+
+            // Car image — bottom-right, partial bleed
             AsyncImage(
                 model = card.imageUrl,
                 contentDescription = card.title,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(90.dp)
-                    .clip(RoundedCornerShape(topStart = 10.dp, topEnd = 10.dp))
+                    .width(100.dp)
+                    .height(70.dp)
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 4.dp)
             )
 
-            Column(modifier = Modifier.padding(8.dp)) {
-                Text(
-                    text = card.title,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.Black,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                if (card.subtitle != null) {
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Text(
-                        text = card.subtitle,
-                        fontSize = 11.sp,
-                        color = Cars24Red,
-                        fontWeight = FontWeight.Medium,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+            // Gradient overlay so text is always readable
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(cardBg, cardBg.copy(alpha = 0.4f)),
+                            startX = 0f,
+                            endX = 300f
+                        )
                     )
-                }
-            }
+            )
+
+            // Title text — top-left
+            Text(
+                text = card.title,
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                lineHeight = 17.sp,
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(10.dp)
+                    .width(90.dp)
+            )
         }
     }
 }
