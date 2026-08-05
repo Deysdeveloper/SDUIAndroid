@@ -1,8 +1,9 @@
 package com.deysdeveloper.cars24sduiassignment.ui.state
 
-// Placeholder — replaced in Task 6 (HomeViewModel)
+import com.deysdeveloper.cars24sduiassignment.data.model.ScreenData
+
 sealed interface HomeUiState {
     data object Loading : HomeUiState
-    data class Success(val screenJson: String) : HomeUiState
+    data class Success(val screen: ScreenData) : HomeUiState
     data class Error(val message: String) : HomeUiState
 }
