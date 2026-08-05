@@ -10,10 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.deysdeveloper.cars24sduiassignment.ui.screen.ChooserScreen
 import com.deysdeveloper.cars24sduiassignment.ui.screen.HomeScreen
 import com.deysdeveloper.cars24sduiassignment.ui.screen.StaticHomeScreen
 
 object Routes {
+    const val CHOOSER = "chooser"
     const val HOME = "home"
     const val STATIC_HOME = "static_home"
     const val BUY_USED_CAR = "buy_used_car"
@@ -30,13 +32,21 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Routes.HOME,
+        startDestination = Routes.CHOOSER,
         modifier = modifier
     ) {
+        composable(Routes.CHOOSER) {
+            ChooserScreen(
+                onSduiClick = { navController.navigate(Routes.HOME) },
+                onStaticClick = { navController.navigate(Routes.STATIC_HOME) }
+            )
+        }
         composable(Routes.HOME) {
             HomeScreen(navController = navController)
         }
-        composable(Routes.STATIC_HOME) { StaticHomeScreen() }
+        composable(Routes.STATIC_HOME) {
+            StaticHomeScreen()
+        }
         composable(Routes.BUY_USED_CAR) { PlaceholderScreen("Buy Used Car") }
         composable(Routes.SELL_CAR) { PlaceholderScreen("Sell Car") }
         composable(Routes.LOANS) { PlaceholderScreen("Loans") }

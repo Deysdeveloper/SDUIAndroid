@@ -6,7 +6,7 @@
       "id": "header_1",
       "type": "header",
       "props": {
-        "location": "Bangalore",
+        "location": "Bang",
         "searchHint": "Search for cars, brands...",
         "avatarUrl": "https://i.pravatar.cc/150?img=12",
         "locationAction": {
@@ -74,7 +74,7 @@
       "type": "featured_car_card",
       "props": {
         "title": "2021 Maruti Suzuki Swift VXI",
-        "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+        "imageUrl": "https://images.unsplash.com/photo-1541443131876-44b03de101c5?w=664&q=80",
         "price": "₹5.75 Lakh",
         "chips": ["2021", "26,000 km", "Petrol", "Manual"],
         "ctaLabel": "View Details",
@@ -94,28 +94,28 @@
           {
             "id": "buy_1",
             "title": "Budget Cars",
-            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+            "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&q=80",
             "subtitle": "Under ₹5 Lakh",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "budget" } }
           },
           {
             "id": "buy_2",
             "title": "SUVs",
-            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/110621/creta-exterior-right-front-three-quarter-2.jpeg",
+            "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&q=80",
             "subtitle": "Spacious & Powerful",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "suv" } }
           },
           {
             "id": "buy_3",
             "title": "Electric",
-            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/130591/nexon-ev-exterior-right-front-three-quarter-4.jpeg",
+            "imageUrl": "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&q=80",
             "subtitle": "Go Green",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "electric" } }
           },
           {
             "id": "buy_4",
             "title": "Sedans",
-            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/48927/city-exterior-right-front-three-quarter-3.jpeg",
+            "imageUrl": "https://images.unsplash.com/photo-1549399542-7d3b2d2cf4c3?w=400&q=80",
             "subtitle": "Style & Comfort",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "sedan" } }
           }
@@ -241,7 +241,7 @@
             {
               "id": "car_rv_1",
               "title": "Honda City ZX 2020",
-              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/48927/city-exterior-right-front-three-quarter-3.jpeg",
+              "imageUrl": "https://images.unsplash.com/photo-1549399542-7d3b2d2cf4c3?w=400&q=80",
               "price": "₹8.50 Lakh",
               "specs": ["2020", "42,000 km", "Petrol"],
               "isFavorite": true,
@@ -250,7 +250,7 @@
             {
               "id": "car_rv_2",
               "title": "Hyundai Creta S 2022",
-              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/110621/creta-exterior-right-front-three-quarter-2.jpeg",
+              "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&q=80",
               "price": "₹12.25 Lakh",
               "specs": ["2022", "18,000 km", "Diesel"],
               "isFavorite": false,
@@ -259,7 +259,7 @@
             {
               "id": "car_rv_3",
               "title": "Tata Nexon EV Max 2023",
-              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/130591/nexon-ev-exterior-right-front-three-quarter-4.jpeg",
+              "imageUrl": "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&q=80",
               "price": "₹16.75 Lakh",
               "specs": ["2023", "9,000 km", "Electric"],
               "isFavorite": false,
@@ -270,7 +270,7 @@
             {
               "id": "car_hd_1",
               "title": "Maruti Swift VXI 2021",
-              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+              "imageUrl": "https://images.unsplash.com/photo-1541443131876-44b03de101c5?w=400&q=80",
               "price": "₹5.75 Lakh",
               "specs": ["2021", "26,000 km", "Petrol"],
               "isFavorite": false,
@@ -279,7 +279,7 @@
             {
               "id": "car_hd_2",
               "title": "Kia Seltos GTX+ 2021",
-              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/40087/seltos-exterior-right-front-three-quarter-136.jpeg",
+              "imageUrl": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&q=80",
               "price": "₹14.50 Lakh",
               "specs": ["2021", "31,000 km", "Diesel"],
               "isFavorite": true,
@@ -288,7 +288,7 @@
             {
               "id": "car_hd_3",
               "title": "Toyota Innova Crysta 2020",
-              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/45890/innova-crysta-exterior-right-front-three-quarter-2.jpeg",
+              "imageUrl": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&q=80",
               "price": "₹17.00 Lakh",
               "specs": ["2020", "55,000 km", "Diesel"],
               "isFavorite": false,
@@ -307,21 +307,21 @@
           {
             "id": "trend_1",
             "title": "Hyundai Creta",
-            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/110621/creta-exterior-right-front-three-quarter-2.jpeg",
+            "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=400&q=80",
             "subtitle": "From ₹10.5 Lakh",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "model": "creta" } }
           },
           {
             "id": "trend_2",
             "title": "Tata Nexon",
-            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/130591/nexon-ev-exterior-right-front-three-quarter-4.jpeg",
+            "imageUrl": "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&q=80",
             "subtitle": "From ₹7.5 Lakh",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "model": "nexon" } }
           },
           {
             "id": "trend_3",
             "title": "Maruti Swift",
-            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+            "imageUrl": "https://images.unsplash.com/photo-1541443131876-44b03de101c5?w=400&q=80",
             "subtitle": "From ₹4.5 Lakh",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "model": "swift" } }
           }
@@ -438,17 +438,17 @@
         "banners": [
           {
             "id": "banner_1",
-            "imageUrl": "https://imgd.aeplcdn.com/0x0/n/cw/ec/car24-banner-30day-return.png",
+            "imageUrl": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=80",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "promo": "30day" } }
           },
           {
             "id": "banner_2",
-            "imageUrl": "https://imgd.aeplcdn.com/0x0/n/cw/ec/car24-banner-crashfree.png",
+            "imageUrl": "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "promo": "crashfree" } }
           },
           {
             "id": "banner_3",
-            "imageUrl": "https://imgd.aeplcdn.com/0x0/n/cw/ec/car24-banner-warranty.png",
+            "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
             "action": { "type": "navigate", "destination": "buy_used_car", "params": { "promo": "warranty" } }
           }
         ]
