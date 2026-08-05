@@ -1,0 +1,429 @@
+{
+  "screenId": "home",
+  "screenVersion": 1,
+  "components": [
+    {
+      "id": "header_1",
+      "type": "header",
+      "props": {
+        "location": "Bangalore",
+        "searchHint": "Search for cars, brands...",
+        "avatarUrl": "https://i.pravatar.cc/150?img=12",
+        "locationAction": {
+          "type": "navigate",
+          "destination": "search",
+          "params": { "mode": "location" }
+        },
+        "searchAction": {
+          "type": "navigate",
+          "destination": "search",
+          "params": { "mode": "search" }
+        },
+        "avatarAction": {
+          "type": "navigate",
+          "destination": "sell_car"
+        }
+      }
+    },
+    {
+      "id": "tabs_1",
+      "type": "category_tab_bar",
+      "props": {
+        "tabs": [
+          {
+            "id": "all",
+            "label": "All",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/891/891399.png",
+            "action": {
+              "type": "filter_sections",
+              "params": { "sections": "" }
+            }
+          },
+          {
+            "id": "buy",
+            "label": "Buy used car",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/744/744465.png",
+            "action": {
+              "type": "filter_sections",
+              "params": { "sections": "featured_1,buy_rail_1,trending_rail_1,tabbed_listing_1" }
+            }
+          },
+          {
+            "id": "sell",
+            "label": "Sell car",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/2736/2736783.png",
+            "action": {
+              "type": "filter_sections",
+              "params": { "sections": "sell_rail_1" }
+            }
+          },
+          {
+            "id": "loans",
+            "label": "Loans",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/2830/2830284.png",
+            "action": {
+              "type": "filter_sections",
+              "params": { "sections": "loans_rail_1" }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "featured_1",
+      "type": "featured_car_card",
+      "props": {
+        "title": "2021 Maruti Suzuki Swift VXI",
+        "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+        "price": "₹5.75 Lakh",
+        "chips": ["2021", "26,000 km", "Petrol", "Manual"],
+        "ctaLabel": "View Details",
+        "action": {
+          "type": "navigate",
+          "destination": "car_detail",
+          "params": { "carId": "swift_001" }
+        }
+      }
+    },
+    {
+      "id": "buy_rail_1",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Buy a car",
+        "cards": [
+          {
+            "id": "buy_1",
+            "title": "Budget Cars",
+            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+            "subtitle": "Under ₹5 Lakh",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "budget" } }
+          },
+          {
+            "id": "buy_2",
+            "title": "SUVs",
+            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/110621/creta-exterior-right-front-three-quarter-2.jpeg",
+            "subtitle": "Spacious & Powerful",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "suv" } }
+          },
+          {
+            "id": "buy_3",
+            "title": "Electric",
+            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/130591/nexon-ev-exterior-right-front-three-quarter-4.jpeg",
+            "subtitle": "Go Green",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "electric" } }
+          },
+          {
+            "id": "buy_4",
+            "title": "Sedans",
+            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/48927/city-exterior-right-front-three-quarter-3.jpeg",
+            "subtitle": "Style & Comfort",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "filter": "sedan" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sell_rail_1",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Sell your car",
+        "cards": [
+          {
+            "id": "sell_1",
+            "title": "Instant Price",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/2736/2736783.png",
+            "subtitle": "Get price in 30 sec",
+            "action": { "type": "navigate", "destination": "sell_car", "params": { "step": "valuation" } }
+          },
+          {
+            "id": "sell_2",
+            "title": "RC Transfer",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/1006/1006555.png",
+            "subtitle": "Hassle-free transfer",
+            "action": { "type": "navigate", "destination": "sell_car", "params": { "step": "rc" } }
+          },
+          {
+            "id": "sell_3",
+            "title": "Free Inspection",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/1828/1828640.png",
+            "subtitle": "At your doorstep",
+            "action": { "type": "navigate", "destination": "sell_car", "params": { "step": "inspection" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "loans_rail_1",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Get a loan",
+        "cards": [
+          {
+            "id": "loan_1",
+            "title": "Car Loan",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/2830/2830284.png",
+            "subtitle": "From ₹8.5% p.a.",
+            "action": { "type": "navigate", "destination": "loans", "params": { "type": "car_loan" } }
+          },
+          {
+            "id": "loan_2",
+            "title": "Top-up Loan",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/2830/2830289.png",
+            "subtitle": "On existing loan",
+            "action": { "type": "navigate", "destination": "loans", "params": { "type": "topup" } }
+          },
+          {
+            "id": "loan_3",
+            "title": "Check Eligibility",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/190/190411.png",
+            "subtitle": "Instant result",
+            "action": { "type": "navigate", "destination": "loans", "params": { "type": "eligibility" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "service_grid_1",
+      "type": "service_grid",
+      "props": {
+        "title": "Car services",
+        "services": [
+          {
+            "id": "svc_1",
+            "label": "New car PDI",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/1046/1046347.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "pdi" } }
+          },
+          {
+            "id": "svc_2",
+            "label": "Used car check",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/2991/2991107.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "used_check" } }
+          },
+          {
+            "id": "svc_3",
+            "label": "Vehicle history",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/1828/1828919.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "history" } }
+          },
+          {
+            "id": "svc_4",
+            "label": "Check challan",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/1828/1828490.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "challan" } }
+          },
+          {
+            "id": "svc_5",
+            "label": "Car insurance",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/2271/2271057.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "insurance" } }
+          },
+          {
+            "id": "svc_6",
+            "label": "Odometer check",
+            "iconUrl": "https://cdn-icons-png.flaticon.com/512/3209/3209220.png",
+            "action": { "type": "navigate", "destination": "service_detail", "params": { "serviceId": "odometer" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tabbed_listing_1",
+      "type": "tabbed_car_listing",
+      "props": {
+        "title": "Used cars you'll love",
+        "tabs": [
+          { "id": "recently_viewed", "label": "Recently viewed" },
+          { "id": "hot_deals", "label": "Hot deals" }
+        ],
+        "carsByTab": {
+          "recently_viewed": [
+            {
+              "id": "car_rv_1",
+              "title": "Honda City ZX 2020",
+              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/48927/city-exterior-right-front-three-quarter-3.jpeg",
+              "price": "₹8.50 Lakh",
+              "specs": ["2020", "42,000 km", "Petrol"],
+              "isFavorite": true,
+              "action": { "type": "navigate", "destination": "car_detail", "params": { "carId": "city_001" } }
+            },
+            {
+              "id": "car_rv_2",
+              "title": "Hyundai Creta S 2022",
+              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/110621/creta-exterior-right-front-three-quarter-2.jpeg",
+              "price": "₹12.25 Lakh",
+              "specs": ["2022", "18,000 km", "Diesel"],
+              "isFavorite": false,
+              "action": { "type": "navigate", "destination": "car_detail", "params": { "carId": "creta_001" } }
+            },
+            {
+              "id": "car_rv_3",
+              "title": "Tata Nexon EV Max 2023",
+              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/130591/nexon-ev-exterior-right-front-three-quarter-4.jpeg",
+              "price": "₹16.75 Lakh",
+              "specs": ["2023", "9,000 km", "Electric"],
+              "isFavorite": false,
+              "action": { "type": "navigate", "destination": "car_detail", "params": { "carId": "nexon_ev_001" } }
+            }
+          ],
+          "hot_deals": [
+            {
+              "id": "car_hd_1",
+              "title": "Maruti Swift VXI 2021",
+              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+              "price": "₹5.75 Lakh",
+              "specs": ["2021", "26,000 km", "Petrol"],
+              "isFavorite": false,
+              "action": { "type": "navigate", "destination": "car_detail", "params": { "carId": "swift_001" } }
+            },
+            {
+              "id": "car_hd_2",
+              "title": "Kia Seltos GTX+ 2021",
+              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/40087/seltos-exterior-right-front-three-quarter-136.jpeg",
+              "price": "₹14.50 Lakh",
+              "specs": ["2021", "31,000 km", "Diesel"],
+              "isFavorite": true,
+              "action": { "type": "navigate", "destination": "car_detail", "params": { "carId": "seltos_001" } }
+            },
+            {
+              "id": "car_hd_3",
+              "title": "Toyota Innova Crysta 2020",
+              "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/45890/innova-crysta-exterior-right-front-three-quarter-2.jpeg",
+              "price": "₹17.00 Lakh",
+              "specs": ["2020", "55,000 km", "Diesel"],
+              "isFavorite": false,
+              "action": { "type": "navigate", "destination": "car_detail", "params": { "carId": "innova_001" } }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "trending_rail_1",
+      "type": "section_card_rail",
+      "props": {
+        "title": "Trending cars",
+        "cards": [
+          {
+            "id": "trend_1",
+            "title": "Hyundai Creta",
+            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/110621/creta-exterior-right-front-three-quarter-2.jpeg",
+            "subtitle": "From ₹10.5 Lakh",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "model": "creta" } }
+          },
+          {
+            "id": "trend_2",
+            "title": "Tata Nexon",
+            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/130591/nexon-ev-exterior-right-front-three-quarter-4.jpeg",
+            "subtitle": "From ₹7.5 Lakh",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "model": "nexon" } }
+          },
+          {
+            "id": "trend_3",
+            "title": "Maruti Swift",
+            "imageUrl": "https://imgd.aeplcdn.com/664x374/n/cw/ec/54399/swift-exterior-right-front-three-quarter-3.jpeg",
+            "subtitle": "From ₹4.5 Lakh",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "model": "swift" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "showroom_rail_1",
+      "type": "showroom_rail",
+      "props": {
+        "title": "Nearby showrooms",
+        "showrooms": [
+          {
+            "id": "sr_1",
+            "name": "Cars24 Hub — Whitefield",
+            "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipMFkQTEI4PlDzLa0gYmO1P7kl5E-lLz87fLxQXL=s1360-w1360-h1020",
+            "distance": "3.2 km",
+            "status": "Open",
+            "callAction": {
+              "type": "call",
+              "params": { "phone": "+918066064100" }
+            },
+            "viewAction": {
+              "type": "navigate",
+              "destination": "showroom_detail",
+              "params": { "showroomId": "sr_whitefield" }
+            }
+          },
+          {
+            "id": "sr_2",
+            "name": "Cars24 Hub — Koramangala",
+            "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipMFkQTEI4PlDzLa0gYmO1P7kl5E-lLz87fLxQXL=s1360-w1360-h1020",
+            "distance": "6.8 km",
+            "status": "Open",
+            "callAction": {
+              "type": "call",
+              "params": { "phone": "+918066064101" }
+            },
+            "viewAction": {
+              "type": "navigate",
+              "destination": "showroom_detail",
+              "params": { "showroomId": "sr_koramangala" }
+            }
+          },
+          {
+            "id": "sr_3",
+            "name": "Cars24 Hub — Indiranagar",
+            "imageUrl": "https://lh3.googleusercontent.com/p/AF1QipMFkQTEI4PlDzLa0gYmO1P7kl5E-lLz87fLxQXL=s1360-w1360-h1020",
+            "distance": "9.1 km",
+            "status": "Closed",
+            "callAction": {
+              "type": "call",
+              "params": { "phone": "+918066064102" }
+            },
+            "viewAction": {
+              "type": "navigate",
+              "destination": "showroom_detail",
+              "params": { "showroomId": "sr_indiranagar" }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "promo_carousel_1",
+      "type": "promo_banner_carousel",
+      "props": {
+        "autoScrollIntervalMs": 3000,
+        "banners": [
+          {
+            "id": "banner_1",
+            "imageUrl": "https://imgd.aeplcdn.com/0x0/n/cw/ec/car24-banner-30day-return.png",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "promo": "30day" } }
+          },
+          {
+            "id": "banner_2",
+            "imageUrl": "https://imgd.aeplcdn.com/0x0/n/cw/ec/car24-banner-crashfree.png",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "promo": "crashfree" } }
+          },
+          {
+            "id": "banner_3",
+            "imageUrl": "https://imgd.aeplcdn.com/0x0/n/cw/ec/car24-banner-warranty.png",
+            "action": { "type": "navigate", "destination": "buy_used_car", "params": { "promo": "warranty" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "footer_1",
+      "type": "brand_footer",
+      "props": {
+        "text": "better drives, better lives",
+        "backgroundColor": "#E31837",
+        "textColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "unknown_1",
+      "type": "experimental_widget",
+      "props": {
+        "data": "This type is not recognised — must render as empty Box, never crash"
+      }
+    }
+  ]
+}
