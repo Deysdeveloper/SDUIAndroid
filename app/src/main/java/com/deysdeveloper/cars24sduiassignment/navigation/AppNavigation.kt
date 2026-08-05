@@ -11,9 +11,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.deysdeveloper.cars24sduiassignment.ui.screen.HomeScreen
+import com.deysdeveloper.cars24sduiassignment.ui.screen.StaticHomeScreen
 
 object Routes {
     const val HOME = "home"
+    const val STATIC_HOME = "static_home"
     const val BUY_USED_CAR = "buy_used_car"
     const val SELL_CAR = "sell_car"
     const val LOANS = "loans"
@@ -34,6 +36,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         composable(Routes.HOME) {
             HomeScreen(navController = navController)
         }
+        composable(Routes.STATIC_HOME) { StaticHomeScreen() }
         composable(Routes.BUY_USED_CAR) { PlaceholderScreen("Buy Used Car") }
         composable(Routes.SELL_CAR) { PlaceholderScreen("Sell Car") }
         composable(Routes.LOANS) { PlaceholderScreen("Loans") }
@@ -47,7 +50,7 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 /** Safe fallback so unknown navigate destinations never crash. */
 fun NavController.navigateSafe(route: String) {
     val validRoutes = setOf(
-        Routes.HOME, Routes.BUY_USED_CAR, Routes.SELL_CAR,
+        Routes.HOME, Routes.STATIC_HOME, Routes.BUY_USED_CAR, Routes.SELL_CAR,
         Routes.LOANS, Routes.CAR_DETAIL, Routes.SHOWROOM_DETAIL,
         Routes.SERVICE_DETAIL, Routes.SEARCH
     )

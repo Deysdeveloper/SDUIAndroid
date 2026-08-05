@@ -46,7 +46,8 @@ fun SDUIRenderer(
     components: List<Component>,
     activeFilter: Set<String>?,
     gson: Gson,
-    onAction: (Action) -> Unit
+    onAction: (Action) -> Unit,
+    contentPadding: PaddingValues = PaddingValues()
 ) {
     val visible = components.filter { component ->
         when {
@@ -57,7 +58,12 @@ fun SDUIRenderer(
         }
     }
 
-    LazyColumn(contentPadding = PaddingValues(bottom = 24.dp)) {
+    LazyColumn(
+        contentPadding = PaddingValues(
+            top = contentPadding.calculateTopPadding(),
+            bottom = contentPadding.calculateBottomPadding() + 16.dp
+        )
+    ) {
         items(visible, key = { it.id }) { component ->
             RenderComponent(component = component, gson = gson, onAction = onAction)
         }
