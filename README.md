@@ -152,6 +152,99 @@ That's it — **no changes** to `HomeViewModel`, `HomeScreen`, `ActionHandler`, 
 
 ---
 
+## Schema Design Rationale
+
+### Why `props` stays as raw `JsonObject`
+Each component's `props` field is kept as a `JsonObject` at the model layer and
+only deserialised into a typed `XProps` class at render time — lazily, per
+component, only when it's about to be laid out. This means:
+- Off-screen components pay zero parse cost
+- Adding a new field to a Props class is backwards-compatible — old JSON without
+  that field gets the Kotlin default value, never a crash
+- The ViewModel only parses `ScreenData` (the envelope) on the IO thread; the
+  per-component props cost is deferred to composition time on the main thread
+
+### Why snake_case JSON fields
+All `@SerializedName` annotations use snake_case (`image_url`, `bg_color`,
+`interval_ms`). This matches the REST API standard used by every real backend.
+Using camelCase in JSON would be a Kotlin convention leaking into the schema.
+
+### Why cars are nested inside tabs (not a flat `carsByTab` map)
+```json
+// ❌ Fragile — key must exactly match tab id
+"carsByTab": { "recently_viewed": [...], "hot_deals": [...] }
+
+// ✅ Self-contained — no implicit key contract
+"tabs": [
+  { "id": "recently_viewed", "label": "Recently Viewed", "cars": [...] },
+  { "id": "hot_deals",       "label": "Hot Deals",       "cars": [...] }
+]
+```
+With the nested approach, a tab with no matching key is simply an empty list —
+the screen renders safely. With the map approach, a typo in a tab ID silently
+shows no cars with no error.
+
+### Why `actions: []` array on showrooms (not `callAction` / `viewAction`)
+Hardcoding two named action fields means the composable is forever limited to
+exactly two buttons. A generic `actions` list lets the server add a third button
+("Get Directions", "WhatsApp") with zero client code changes.
+
+---
+
+## Versioning Story
+
+`ScreenData` carries a `screen_version` field:
+```json
+{ "screen_id": "home", "screen_version": "1.0.0", "components": [...] }
+```
+
+**How this would work in production:**
+
+1. Client caches the last-received `(screen_id, screen_version, components)` in
+   Room / SharedPreferences on first load.
+2. On next open, client sends its cached `screen_version` to the server.
+3. Server compares versions:
+   - **Same version** → returns `304 Not Modified` → client renders cached JSON instantly (0ms load time)
+   - **New version** → returns full new JSON → client parses, renders, updates cache
+4. Unknown component types in the new JSON degrade gracefully via `UnknownComponent`
+   — older app builds never crash on new server-added component types.
+
+In this project the JSON is bundled in assets, so `screen_version` is not actively
+used. The field is present in the schema so the versioning contract is demonstrable
+without a backend.
+
+---
+
+## Trade-offs
+
+### What SDUI gives you
+| Benefit | Example in this project |
+|---|---|
+| Zero-code screen changes | Reorder sections by changing JSON array order |
+| Server-controlled A/B testing | Return different component list per user segment |
+| Kill switch for broken sections | Omit a component ID from JSON |
+| Gradual rollout | Serve new component type to 10% of users |
+| Forward compatibility | Unknown types render as empty — old builds survive |
+
+### What SDUI costs you
+| Cost | Mitigation in this project |
+|---|---|
+| Extra parsing step (Gson) | IO thread + lazy props parse — main thread never blocked |
+| Harder to debug (no compile-time safety on JSON) | Typed Props classes + safe defaults eliminate runtime crashes |
+| Component proliferation over time | 4-file pattern keeps each addition isolated |
+| Schema versioning complexity | `screen_version` field provides the hook |
+| Images always async | Coil handles this — first frame renders before images appear |
+
+### SDUI vs Static — the bottom line
+The static screen (`StaticHomeScreen`) composes its entire view tree eagerly on
+the first frame — every section exists in memory whether visible or not. The SDUI
+screen's `LazyColumn` only composes visible components. On benchmarks, the SDUI
+screen was **22ms faster** on cold-start first frame (130ms vs 152ms) despite the
+JSON parsing cost — because the `LazyColumn` initial composition is cheaper than
+the static screen's full eager layout. See `PERF.md` for full numbers.
+
+---
+
 ## Tech Stack
 
 | Library | Version | Purpose |

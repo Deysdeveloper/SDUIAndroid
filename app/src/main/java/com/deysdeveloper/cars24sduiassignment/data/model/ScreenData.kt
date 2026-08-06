@@ -25,4 +25,5 @@ object ComponentType {
     const val SHOWROOM_RAIL = "showroom_rail"
     const val PROMO_BANNER_CAROUSEL = "promo_banner_carousel"
     const val BRAND_FOOTER = "brand_footer"
+    const val LOAN_TENURE_SELECTOR = "loan_tenure_selector"
 }

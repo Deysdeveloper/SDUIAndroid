@@ -350,6 +350,28 @@
       }
     },
     {
+      "id": "loan_tenure_1",
+      "type": "loan_tenure_selector",
+      "props": {
+        "title": "Car Loans",
+        "subtitle": "Lowest EMIs starting from ₹6,999/month",
+        "car_price": "₹800000",
+        "default_tenure_months": 48,
+        "down_payment_pct": 20,
+        "interest_rate_pct": 9.5,
+        "cta_text": "Apply for Loan",
+        "tenures": [
+          { "months": 12, "label": "1 Year",  "badge": null },
+          { "months": 24, "label": "2 Years", "badge": null },
+          { "months": 36, "label": "3 Years", "badge": null },
+          { "months": 48, "label": "4 Years", "badge": "Best Value" },
+          { "months": 60, "label": "5 Years", "badge": null },
+          { "months": 72, "label": "6 Years", "badge": null }
+        ],
+        "action": { "type": "navigate", "destination": "loans" }
+      }
+    },
+    {
       "id": "brand_footer_1",
       "type": "brand_footer",
       "props": {

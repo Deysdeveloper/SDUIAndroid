@@ -9,6 +9,7 @@ import com.deysdeveloper.cars24sduiassignment.data.model.Action
 import com.deysdeveloper.cars24sduiassignment.data.model.Component
 import com.deysdeveloper.cars24sduiassignment.data.model.ComponentType
 import com.deysdeveloper.cars24sduiassignment.data.model.props.BrandFooterProps
+import com.deysdeveloper.cars24sduiassignment.data.model.props.LoanTenureSelectorProps
 import com.deysdeveloper.cars24sduiassignment.data.model.props.CategoryTabBarProps
 import com.deysdeveloper.cars24sduiassignment.data.model.props.FeaturedCarCardProps
 import com.deysdeveloper.cars24sduiassignment.data.model.props.HeaderProps
@@ -18,6 +19,7 @@ import com.deysdeveloper.cars24sduiassignment.data.model.props.ServiceGridProps
 import com.deysdeveloper.cars24sduiassignment.data.model.props.ShowroomRailProps
 import com.deysdeveloper.cars24sduiassignment.data.model.props.TabbedCarListingProps
 import com.deysdeveloper.cars24sduiassignment.ui.components.BrandFooterComponent
+import com.deysdeveloper.cars24sduiassignment.ui.components.LoanTenureSelectorComponent
 import com.deysdeveloper.cars24sduiassignment.ui.components.CategoryTabBarComponent
 import com.deysdeveloper.cars24sduiassignment.ui.components.FeaturedCarCardComponent
 import com.deysdeveloper.cars24sduiassignment.ui.components.HeaderComponent
@@ -124,6 +126,11 @@ private fun RenderComponent(
 
         ComponentType.BRAND_FOOTER -> BrandFooterComponent(
             props = gson.fromJson(component.props, BrandFooterProps::class.java)
+        )
+
+        ComponentType.LOAN_TENURE_SELECTOR -> LoanTenureSelectorComponent(
+            props = gson.fromJson(component.props, LoanTenureSelectorProps::class.java),
+            onAction = onAction
         )
 
         else -> UnknownComponent()
