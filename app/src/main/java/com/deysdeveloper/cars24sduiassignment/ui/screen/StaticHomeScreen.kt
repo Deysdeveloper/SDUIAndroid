@@ -42,7 +42,9 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -94,8 +96,15 @@ private val navItems = listOf(
 
 @Composable
 fun StaticHomeScreen() {
+    val renderStart = remember { System.currentTimeMillis() }
     var activeTab by remember { mutableStateOf("All") }
     var selectedNav by remember { mutableStateOf("Home") }
+
+    // Log first frame — symmetric with HomeScreen's SDUI_PERF log
+    LaunchedEffect(Unit) {
+        val ms = System.currentTimeMillis() - renderStart
+        Log.d("SDUI_PERF", "StaticHomeScreen first frame: ${ms}ms  (JSON parse: 0ms, Gson: 0ms)")
+    }
 
     Scaffold(
         bottomBar = {

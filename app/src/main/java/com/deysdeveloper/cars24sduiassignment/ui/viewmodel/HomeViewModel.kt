@@ -1,6 +1,7 @@
 package com.deysdeveloper.cars24sduiassignment.ui.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deysdeveloper.cars24sduiassignment.data.model.ScreenData
@@ -39,18 +40,35 @@ class HomeViewModel @Inject constructor(
     fun loadScreen() {
         viewModelScope.launch {
             _uiState.value = HomeUiState.Loading
+            val t0 = System.currentTimeMillis()
             val result = withContext(Dispatchers.IO) {
                 runCatching {
+                    val readStart = System.currentTimeMillis()
                     val json = context.assets
                         .open("data.json")
                         .bufferedReader()
                         .use { it.readText() }
-                    gson.fromJson(json, ScreenData::class.java)
+                    val readMs = System.currentTimeMillis() - readStart
+                    Log.d("SDUI_PERF", "JSON read: ${readMs}ms  (${json.length} chars)")
+
+                    val parseStart = System.currentTimeMillis()
+                    val screen = gson.fromJson(json, ScreenData::class.java)
+                    val parseMs = System.currentTimeMillis() - parseStart
+                    Log.d("SDUI_PERF", "Gson parse: ${parseMs}ms  (${screen.components.size} components)")
+
+                    screen
                 }
             }
+            val totalMs = System.currentTimeMillis() - t0
             result
-                .onSuccess { _uiState.value = HomeUiState.Success(it) }
-                .onFailure { _uiState.value = HomeUiState.Error(it.message ?: "Failed to load screen") }
+                .onSuccess {
+                    Log.d("SDUI_PERF", "loadScreen SUCCESS — total: ${totalMs}ms")
+                    _uiState.value = HomeUiState.Success(it)
+                }
+                .onFailure {
+                    Log.e("SDUI_PERF", "loadScreen FAILURE — total: ${totalMs}ms", it)
+                    _uiState.value = HomeUiState.Error(it.message ?: "Failed to load screen")
+                }
         }
     }
 

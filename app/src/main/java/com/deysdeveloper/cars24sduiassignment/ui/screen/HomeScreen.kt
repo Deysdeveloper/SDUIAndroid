@@ -1,5 +1,6 @@
 package com.deysdeveloper.cars24sduiassignment.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,6 +26,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -106,13 +108,18 @@ fun HomeScreen(
                 padding = innerPadding,
                 onRetry = viewModel::loadScreen
             )
-            is HomeUiState.Success -> SDUIRenderer(
-                components = state.screen.components,
-                activeFilter = activeFilter,
-                gson = viewModel.gson,
-                onAction = onAction,
-                contentPadding = innerPadding
-            )
+            is HomeUiState.Success -> {
+                LaunchedEffect(Unit) {
+                    Log.d("SDUI_PERF", "HomeScreen first frame rendered — ${state.screen.components.size} components visible")
+                }
+                SDUIRenderer(
+                    components = state.screen.components,
+                    activeFilter = activeFilter,
+                    gson = viewModel.gson,
+                    onAction = onAction,
+                    contentPadding = innerPadding
+                )
+            }
         }
     }
 }
