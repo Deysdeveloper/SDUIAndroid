@@ -54,10 +54,10 @@
       "type": "featured_car_card",
       "props": {
         "tag": "BUY USED CAR",
-        "title": "High demand for the car you viewed · 2024 Thar Roxx",
+        "title": "Buy new Car · 2026 Thar New Model",
         "subtitle": "Inspected · Certified · Best Price",
         "image_url": "https://imgd.aeplcdn.com/370x208/n/cw/ec/210859/thar-facelift-2025-exterior-right-front-three-quarter-6.jpeg?isig=0&q=80",
-        "price": "₹18.79 Lakh",
+        "price": "₹22.79 Lakh",
         "specs": ["33,613 km", "Diesel", "Auto"],
         "cta_text": "Book FREE test drive",
         "action": {
@@ -80,7 +80,7 @@
             "id": "all_used",
             "label": "All used cars",
             "image_url": "https://capitalkia.in/assets/front/images/seltos.jpg",
-            "bg_color": "#1B2B8A",
+            "bg_color": "#1BBB34",
             "action": {
               "type": "navigate",
               "destination": "car_listing",

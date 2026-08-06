@@ -4,6 +4,19 @@ An Android app demonstrating **Server-Driven UI (SDUI)** built with Jetpack Comp
 
 ---
 
+## Screen Recording
+
+[▶️ Watch the demo (Google Drive)](https://drive.google.com/file/d/1cJC9rBatXVmI6ItfogDV0xsWp07urb1W/view?usp=sharing)
+
+Covers:
+- Page rendering from `data.json` — cold launch to fully rendered screen
+- Category tab filtering (Buy / Sell / Loans) — sections update with zero code
+- Loan tenure selector + bottom sheet — EMI recalculates live on tenure change
+- Unknown component fallback (`new_feature_not_yet_built`) — renders safely as empty
+- Live JSON edit — title and colour changed in `data.json`, re-run, page updates with no Kotlin changes
+
+---
+
 ## How to Run
 
 1. Clone the repo and open in **Android Studio Meerkat** or later

@@ -197,8 +197,8 @@ fun LoanTenureSelectorComponent(
                     selectedMonths = months
                 },
                 onConfirm = {
+                    // Just dismiss — selected tenure + EMI are already updated in state
                     showSheet = false
-                    props.action?.let(onAction)
                 }
             )
         }
@@ -318,7 +318,7 @@ private fun TenureBottomSheetContent(
             colors = ButtonDefaults.buttonColors(containerColor = LoanBlue)
         ) {
             Text(
-                text = "Confirm & Apply",
+                text = "Done",
                 fontWeight = FontWeight.Bold,
                 fontSize = 15.sp,
                 color = Color.White,
