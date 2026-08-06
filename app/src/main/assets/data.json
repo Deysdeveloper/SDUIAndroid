@@ -56,7 +56,7 @@
         "tag": "BUY USED CAR",
         "title": "High demand for the car you viewed · 2024 Thar Roxx",
         "subtitle": "Inspected · Certified · Best Price",
-        "image_url": "https://cdn.cars24.com/thar_roxx.png",
+        "image_url": "https://imgd.aeplcdn.com/370x208/n/cw/ec/210859/thar-facelift-2025-exterior-right-front-three-quarter-6.jpeg?isig=0&q=80",
         "price": "₹18.79 Lakh",
         "specs": ["33,613 km", "Diesel", "Auto"],
         "cta_text": "Book FREE test drive",
@@ -79,7 +79,7 @@
           {
             "id": "all_used",
             "label": "All used cars",
-            "image_url": "https://cdn.cars24.com/all_used.png",
+            "image_url": "https://capitalkia.in/assets/front/images/seltos.jpg",
             "bg_color": "#1B2B8A",
             "action": {
               "type": "navigate",
@@ -90,7 +90,7 @@
           {
             "id": "budget_used",
             "label": "Budget used cars",
-            "image_url": "https://cdn.cars24.com/budget.png",
+            "image_url": "https://images.jdmagicbox.com/quickquotes/images_main/maruti-suzuki-swift-dzire-tour-s-o-bs6-pearl-metallic-arctic-white-271052470-cyn6e.png",
             "bg_color": "#1B2B8A",
             "action": {
               "type": "navigate",
@@ -101,7 +101,7 @@
           {
             "id": "premium_used",
             "label": "Premium used cars",
-            "image_url": "https://cdn.cars24.com/premium.png",
+            "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQsyS3hHFHHmaPqfz9cEleciq0NpKwCEnUet1yHRem3QWq8tSeZn4Y1cA&s=10",
             "bg_color": "#1B2B8A",
             "action": {
               "type": "navigate",
@@ -188,37 +188,37 @@
           {
             "id": "pdi",
             "label": "New car PDI",
-            "image_url": "https://cdn.cars24.com/pdi.png",
+            "image_url": "https://cdn-icons-png.flaticon.com/512/744/744465.png",
             "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "pdi" } }
           },
           {
             "id": "used_check",
             "label": "Used car check",
-            "image_url": "https://cdn.cars24.com/used_check.png",
+            "image_url": "https://img.icons8.com/color/96/car-service.png",
             "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "used_check" } }
           },
           {
             "id": "vehicle_history",
             "label": "Vehicle history",
-            "image_url": "https://cdn.cars24.com/history.png",
+            "image_url": "https://img.icons8.com/color/96/overtime.png",
             "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "history" } }
           },
           {
             "id": "challan",
             "label": "Check challan",
-            "image_url": "https://cdn.cars24.com/challan.png",
+            "image_url": "https://img.icons8.com/color/96/traffic-jam.png",
             "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "challan" } }
           },
           {
             "id": "insurance",
             "label": "Check car insurance",
-            "image_url": "https://cdn.cars24.com/insurance.png",
+            "image_url": "https://cdn-icons-png.flaticon.com/512/190/190411.png",
             "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "insurance" } }
           },
           {
             "id": "odometer",
             "label": "Odometer tampering",
-            "image_url": "https://cdn.cars24.com/odometer.png",
+            "image_url": "https://img.icons8.com/color/96/speedometer.png",
             "action": { "type": "navigate", "destination": "service_detail", "params": { "service": "odometer" } }
           }
         ]
@@ -244,7 +244,7 @@
                 "price": "₹18.79 lakh",
                 "emi": "₹32,180/m*",
                 "badge": "Cars24 Owned stock",
-                "image_url": "https://cdn.cars24.com/thar_roxx.png",
+                "image_url": "https://imgd.aeplcdn.com/370x208/n/cw/ec/210859/thar-facelift-2025-exterior-right-front-three-quarter-6.jpeg?isig=0&q=80",
                 "action": { "type": "navigate", "destination": "car_detail", "params": { "car_id": "thar_001" } }
               }
             ]
@@ -269,7 +269,7 @@
             "location": "Gandhi Nagar, Bengaluru",
             "distance": "2.7 km from MG Road",
             "cars_count": "90+ cars",
-            "image_url": "https://cdn.cars24.com/showroom1.png",
+            "image_url": "https://content3.jdmagicbox.com/v2/comp/bangalore/u8/080pxx80.xx80.251105200556.t1u8/catalogue/right-parking-mlcp-gandhi-bazar-basavanagudi-bangalore-pay-and-park-services-u26uv4wqdr.jpg",
             "status": "closing_soon",
             "closes_at": "08:00 PM",
             "actions": [
@@ -294,7 +294,7 @@
             "label": "Seltos",
             "sublabel": "Kia",
             "rank": 1,
-            "image_url": "https://cdn.cars24.com/seltos.png",
+            "image_url": "https://www.pngarts.com/files/11/Red-Kia-Seltos-PNG-Image-Background.png",
             "action": { "type": "navigate", "destination": "car_detail", "params": { "car_id": "seltos" } }
           },
           {
@@ -302,7 +302,7 @@
             "label": "Sonet",
             "sublabel": "Kia",
             "rank": 2,
-            "image_url": "https://cdn.cars24.com/sonet.png",
+            "image_url": "https://ackodrive-prod.ackoassets.com/image/kia/sonet/glacier-white-pearl-with-aurora-black-pearl-roof/images_cdn/small/Transparent.webp",
             "action": { "type": "navigate", "destination": "car_detail", "params": { "car_id": "sonet" } }
           }
         ]

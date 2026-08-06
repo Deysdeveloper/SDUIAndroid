@@ -42,7 +42,7 @@ import com.deysdeveloper.cars24sduiassignment.data.model.ActionType
 import com.deysdeveloper.cars24sduiassignment.data.model.props.Showroom
 import com.deysdeveloper.cars24sduiassignment.data.model.props.ShowroomRailProps
 
-private val Cars24Red = Color(0xFFE31837)
+// Cars24Blue is defined in HeaderComponent (same package — accessible directly)
 private val OpenGreen = Color(0xFF2E7D32)
 private val ClosingSoonOrange = Color(0xFFF57C00)
 private val ClosedGrey = Color(0xFF9E9E9E)
@@ -133,7 +133,7 @@ private fun ShowroomCard(showroom: Showroom, onAction: (Action) -> Unit) {
                 }
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Filled.LocationOn, "Distance", tint = Cars24Red, modifier = Modifier.size(14.dp))
+                    Icon(Icons.Filled.LocationOn, "Distance", tint = Cars24Blue, modifier = Modifier.size(14.dp))
                     Spacer(modifier = Modifier.width(3.dp))
                     Text(text = showroom.distance, fontSize = 12.sp, color = Color.Gray)
                     if (showroom.carsCount != null) {
@@ -148,8 +148,8 @@ private fun ShowroomCard(showroom: Showroom, onAction: (Action) -> Unit) {
                         onClick = { callAction?.let(onAction) },
                         modifier = Modifier.weight(1f).height(36.dp),
                         shape = RoundedCornerShape(8.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Cars24Red),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, Cars24Red),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Cars24Blue),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, Cars24Blue),
                         contentPadding = PaddingValues(horizontal = 4.dp)
                     ) {
                         Icon(Icons.Filled.Call, "Call", modifier = Modifier.size(14.dp))
@@ -160,7 +160,7 @@ private fun ShowroomCard(showroom: Showroom, onAction: (Action) -> Unit) {
                         onClick = { viewAction?.let(onAction) },
                         modifier = Modifier.weight(1f).height(36.dp),
                         shape = RoundedCornerShape(8.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Cars24Red),
+                        colors = ButtonDefaults.buttonColors(containerColor = Cars24Blue),
                         contentPadding = PaddingValues(horizontal = 4.dp)
                     ) {
                         Text("View", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color.White)

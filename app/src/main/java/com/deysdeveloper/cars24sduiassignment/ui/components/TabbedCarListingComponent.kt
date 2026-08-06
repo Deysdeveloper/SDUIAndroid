@@ -42,9 +42,12 @@ import com.deysdeveloper.cars24sduiassignment.data.model.props.Car
 import com.deysdeveloper.cars24sduiassignment.data.model.props.TabbedCarListingProps
 
 private val Cars24Red = Color(0xFFE31837)
-private val SelectedTabBg = Color(0xFFE31837)
-private val UnselectedTabBg = Color(0xFFF0F0F0)
-private val SpecChipBg = Color(0xFFF5F5F5)
+private val SelectedTabBg = Color(0xFF3535D4)      // Cars24 Blue — matches header/tabs
+private val SelectedTabText = Color.White
+private val UnselectedTabBg = Color(0xFFEEEEF8)    // Very light blue tint
+private val UnselectedTabText = Color(0xFF3535D4)  // Blue text on unselected
+private val SpecChipBg = Color(0xFFEEEEF8)         // Light blue chip background
+private val SpecChipText = Color(0xFF3535D4)        // Blue chip text
 
 @Composable
 fun TabbedCarListingComponent(props: TabbedCarListingProps, onAction: (Action) -> Unit) {
@@ -92,12 +95,12 @@ fun TabbedCarListingComponent(props: TabbedCarListingProps, onAction: (Action) -
                 .padding(horizontal = 16.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .background(UnselectedTabBg)
-                .padding(4.dp),
+                .padding(3.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             props.tabs.forEach { tab ->
                 val isSelected = tab.id == selectedTabId
-                Box(
+                                    Box(
                     modifier = Modifier
                         .weight(1f)
                         .clip(RoundedCornerShape(6.dp))
@@ -110,7 +113,7 @@ fun TabbedCarListingComponent(props: TabbedCarListingProps, onAction: (Action) -
                         text = tab.label,
                         fontSize = 13.sp,
                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                        color = if (isSelected) Color.White else Color.DarkGray
+                        color = if (isSelected) SelectedTabText else UnselectedTabText
                     )
                 }
             }
@@ -157,10 +160,10 @@ private fun CarListingCard(car: Car, onAction: (Action) -> Unit) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Cars24Blue.copy(alpha = 0.08f))
+                        .background(Color(0xFF3535D4).copy(alpha = 0.08f))
                         .padding(horizontal = 12.dp, vertical = 4.dp)
                 ) {
-                    Text(car.badge, fontSize = 11.sp, color = Cars24Blue, fontWeight = FontWeight.Medium)
+                    Text(car.badge, fontSize = 11.sp, color = Color(0xFF3535D4), fontWeight = FontWeight.Medium)
                 }
             }
 
@@ -221,7 +224,7 @@ private fun CarListingCard(car: Car, onAction: (Action) -> Unit) {
                                     .background(SpecChipBg)
                                     .padding(horizontal = 6.dp, vertical = 3.dp)
                             ) {
-                                Text(text = spec, fontSize = 10.sp, color = Color(0xFF555555))
+                                Text(text = spec, fontSize = 10.sp, color = SpecChipText)
                             }
                         }
                     }

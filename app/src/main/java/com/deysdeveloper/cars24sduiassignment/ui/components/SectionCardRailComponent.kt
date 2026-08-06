@@ -105,12 +105,12 @@ private fun SectionCardItem(card: SectionCard, onAction: (Action) -> Unit) {
             AsyncImage(
                 model = card.imageUrl,
                 contentDescription = card.label,
-                contentScale = ContentScale.Fit,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(100.dp)
-                    .height(70.dp)
+                    .width(110.dp)
+                    .height(75.dp)
                     .align(Alignment.BottomEnd)
-                    .padding(bottom = 4.dp)
+                    .clip(RoundedCornerShape(topStart = 12.dp, bottomEnd = 12.dp))
             )
 
             Box(
