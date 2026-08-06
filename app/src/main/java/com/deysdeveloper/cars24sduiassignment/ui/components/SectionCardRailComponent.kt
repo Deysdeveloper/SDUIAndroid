@@ -36,41 +36,22 @@ import com.deysdeveloper.cars24sduiassignment.data.model.Action
 import com.deysdeveloper.cars24sduiassignment.data.model.props.SectionCard
 import com.deysdeveloper.cars24sduiassignment.data.model.props.SectionCardRailProps
 
-// Card background colours mirror the real Cars24 sections
-private val BuyCardBg = Color(0xFF1A237E)   // deep blue for Buy car
-private val SellCardBg = Color(0xFF1B5E20)  // deep green for Sell car
-private val LoanCardBg = Color(0xFF0D47A1)  // mid blue for Loans
-private val DefaultCardBg = Color(0xFF3535D4)
+private val DefaultCardBg = Color(0xFF1A237E)
 
-private val OfferTagBg = Color(0xFFE31837)
-
-/**
- * Reusable horizontal card rail — used for Buy car, Sell car, Loans,
- * and Trending sections. Differentiated only by [props].
- */
 @Composable
 fun SectionCardRailComponent(props: SectionCardRailProps, onAction: (Action) -> Unit) {
-    // Pick card background colour by section title keyword
-    val cardBg = when {
-        props.title.contains("buy", ignoreCase = true) ||
-        props.title.contains("trending", ignoreCase = true) -> BuyCardBg
-        props.title.contains("sell", ignoreCase = true) -> SellCardBg
-        props.title.contains("loan", ignoreCase = true) -> LoanCardBg
-        else -> DefaultCardBg
-    }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.White)
             .padding(vertical = 12.dp)
     ) {
-        // Section title row
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = props.title,
@@ -78,6 +59,18 @@ fun SectionCardRailComponent(props: SectionCardRailProps, onAction: (Action) -> 
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
+            // Badge (e.g. "Up to ₹80,000 off")
+            if (props.badge != null) {
+                val badgeBg = parseHexColor(props.badgeColor) ?: Color(0xFFE63946)
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(badgeBg)
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                ) {
+                    Text(props.badge, color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -87,14 +80,17 @@ fun SectionCardRailComponent(props: SectionCardRailProps, onAction: (Action) -> 
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(props.cards, key = { it.id }) { card ->
-                SectionCardItem(card = card, cardBg = cardBg, onAction = onAction)
+                SectionCardItem(card = card, onAction = onAction)
             }
         }
     }
 }
 
 @Composable
-private fun SectionCardItem(card: SectionCard, cardBg: Color, onAction: (Action) -> Unit) {
+private fun SectionCardItem(card: SectionCard, onAction: (Action) -> Unit) {
+    // Use per-card bg_color from JSON, fall back to default blue
+    val cardBg = parseHexColor(card.bgColor) ?: DefaultCardBg
+
     Card(
         modifier = Modifier
             .width(140.dp)
@@ -104,17 +100,11 @@ private fun SectionCardItem(card: SectionCard, cardBg: Color, onAction: (Action)
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-            // Coloured background
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(cardBg)
-            )
+            Box(modifier = Modifier.fillMaxSize().background(cardBg))
 
-            // Car image — bottom-right, partial bleed
             AsyncImage(
                 model = card.imageUrl,
-                contentDescription = card.title,
+                contentDescription = card.label,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .width(100.dp)
@@ -123,22 +113,19 @@ private fun SectionCardItem(card: SectionCard, cardBg: Color, onAction: (Action)
                     .padding(bottom = 4.dp)
             )
 
-            // Gradient overlay so text is always readable
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
                         Brush.horizontalGradient(
                             colors = listOf(cardBg, cardBg.copy(alpha = 0.4f)),
-                            startX = 0f,
-                            endX = 300f
+                            startX = 0f, endX = 300f
                         )
                     )
             )
 
-            // Title text — top-left
             Text(
-                text = card.title,
+                text = card.label,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
@@ -152,4 +139,16 @@ private fun SectionCardItem(card: SectionCard, cardBg: Color, onAction: (Action)
             )
         }
     }
+}
+
+internal fun parseHexColor(hex: String?): Color? {
+    if (hex == null) return null
+    return runCatching {
+        val cleaned = hex.trimStart('#')
+        when (cleaned.length) {
+            6 -> Color(android.graphics.Color.parseColor("#$cleaned"))
+            8 -> Color(android.graphics.Color.parseColor("#$cleaned"))
+            else -> null
+        }
+    }.getOrNull()
 }

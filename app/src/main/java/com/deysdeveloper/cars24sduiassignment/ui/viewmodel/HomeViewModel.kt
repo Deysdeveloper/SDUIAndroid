@@ -42,7 +42,7 @@ class HomeViewModel @Inject constructor(
             val result = withContext(Dispatchers.IO) {
                 runCatching {
                     val json = context.assets
-                        .open("home_screen.json")
+                        .open("data.json")
                         .bufferedReader()
                         .use { it.readText() }
                     gson.fromJson(json, ScreenData::class.java)

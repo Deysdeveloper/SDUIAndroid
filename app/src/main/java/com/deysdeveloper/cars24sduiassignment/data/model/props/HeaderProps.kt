@@ -5,9 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 data class HeaderProps(
     @SerializedName("location") val location: String = "",
-    @SerializedName("searchHint") val searchHint: String = "Search for cars",
-    @SerializedName("avatarUrl") val avatarUrl: String? = null,
-    @SerializedName("locationAction") val locationAction: Action? = null,
-    @SerializedName("searchAction") val searchAction: Action? = null,
-    @SerializedName("avatarAction") val avatarAction: Action? = null
+    @SerializedName("location_selectable") val locationSelectable: Boolean = true,
+    @SerializedName("search_hint") val searchHint: String = "Search for cars",
+    @SerializedName("avatar_text") val avatarText: String = "",
+    @SerializedName("action") val action: Action? = null
 )

@@ -4,8 +4,8 @@ import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 data class ScreenData(
-    @SerializedName("screenId") val screenId: String = "",
-    @SerializedName("screenVersion") val screenVersion: Int = 1,
+    @SerializedName("screen_id") val screenId: String = "",
+    @SerializedName("screen_version") val screenVersion: String = "1.0.0",
     @SerializedName("components") val components: List<Component> = emptyList()
 )
 

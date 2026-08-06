@@ -26,17 +26,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.deysdeveloper.cars24sduiassignment.data.model.Action
 import com.deysdeveloper.cars24sduiassignment.data.model.props.HeaderProps
 
 val Cars24Blue = Color(0xFF3535D4)
-private val SearchBg = Color(0x33FFFFFF)   // white 20% on blue bg
-private val SearchBgOpaque = Color(0xFFEEEEF8) // for contrast on blue
 
 @Composable
 fun HeaderComponent(props: HeaderProps, onAction: (Action) -> Unit) {
@@ -57,7 +53,7 @@ fun HeaderComponent(props: HeaderProps, onAction: (Action) -> Unit) {
             Row(
                 modifier = Modifier
                     .clip(RoundedCornerShape(4.dp))
-                    .clickable { props.locationAction?.let(onAction) }
+                    .clickable(enabled = props.locationSelectable) { props.action?.let(onAction) }
                     .padding(vertical = 2.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -82,12 +78,14 @@ fun HeaderComponent(props: HeaderProps, onAction: (Action) -> Unit) {
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-                Icon(
-                    imageVector = Icons.Filled.KeyboardArrowDown,
-                    contentDescription = "Change location",
-                    tint = Color.White,
-                    modifier = Modifier.size(20.dp)
-                )
+                if (props.locationSelectable) {
+                    Icon(
+                        imageVector = Icons.Filled.KeyboardArrowDown,
+                        contentDescription = "Change location",
+                        tint = Color.White,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
             }
 
             // Avatar circle with initials
@@ -95,40 +93,28 @@ fun HeaderComponent(props: HeaderProps, onAction: (Action) -> Unit) {
                 modifier = Modifier
                     .size(38.dp)
                     .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.25f))
-                    .clickable { props.avatarAction?.let(onAction) },
+                    .background(Color.White.copy(alpha = 0.25f)),
                 contentAlignment = Alignment.Center
             ) {
-                if (props.avatarUrl != null) {
-                    AsyncImage(
-                        model = props.avatarUrl,
-                        contentDescription = "Profile",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(CircleShape)
-                    )
-                } else {
-                    Text(
-                        text = "DD",
-                        color = Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 13.sp
-                    )
-                }
+                Text(
+                    text = props.avatarText.take(2).uppercase(),
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 13.sp
+                )
             }
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Row 2: Search bar
+        // Row 2: Search bar — tapping fires the same action as location for now
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(46.dp)
                 .clip(RoundedCornerShape(10.dp))
                 .background(Color.White)
-                .clickable { props.searchAction?.let(onAction) }
+                .clickable { props.action?.let(onAction) }
                 .padding(horizontal = 14.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

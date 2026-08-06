@@ -11,9 +11,12 @@ data class ShowroomRailProps(
 data class Showroom(
     @SerializedName("id") val id: String = "",
     @SerializedName("name") val name: String = "",
-    @SerializedName("imageUrl") val imageUrl: String = "",
+    @SerializedName("location") val location: String = "",
     @SerializedName("distance") val distance: String = "",
+    @SerializedName("cars_count") val carsCount: String? = null,
+    @SerializedName("image_url") val imageUrl: String = "",
     @SerializedName("status") val status: String = "",
-    @SerializedName("callAction") val callAction: Action? = null,
-    @SerializedName("viewAction") val viewAction: Action? = null
+    @SerializedName("closes_at") val closesAt: String? = null,
+    // Generic actions list — index 0 = call, index 1 = view
+    @SerializedName("actions") val actions: List<Action> = emptyList()
 )

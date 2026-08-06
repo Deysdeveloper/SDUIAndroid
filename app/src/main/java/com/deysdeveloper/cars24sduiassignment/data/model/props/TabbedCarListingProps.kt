@@ -5,21 +5,26 @@ import com.google.gson.annotations.SerializedName
 
 data class TabbedCarListingProps(
     @SerializedName("title") val title: String = "",
-    @SerializedName("tabs") val tabs: List<ListingTab> = emptyList(),
-    @SerializedName("carsByTab") val carsByTab: Map<String, List<Car>> = emptyMap()
+    @SerializedName("default_tab") val defaultTab: String = "",
+    @SerializedName("view_all_action") val viewAllAction: Action? = null,
+    @SerializedName("tabs") val tabs: List<ListingTab> = emptyList()
 )
 
 data class ListingTab(
     @SerializedName("id") val id: String = "",
-    @SerializedName("label") val label: String = ""
+    @SerializedName("label") val label: String = "",
+    // Cars are nested inside each tab in the new schema
+    @SerializedName("cars") val cars: List<Car> = emptyList()
 )
 
 data class Car(
     @SerializedName("id") val id: String = "",
-    @SerializedName("title") val title: String = "",
-    @SerializedName("imageUrl") val imageUrl: String = "",
+    @SerializedName("name") val name: String = "",
+    @SerializedName("subtitle") val subtitle: String? = null,
+    @SerializedName("image_url") val imageUrl: String = "",
     @SerializedName("price") val price: String = "",
+    @SerializedName("emi") val emi: String? = null,
     @SerializedName("specs") val specs: List<String> = emptyList(),
-    @SerializedName("isFavorite") val isFavorite: Boolean = false,
+    @SerializedName("badge") val badge: String? = null,
     @SerializedName("action") val action: Action? = null
 )

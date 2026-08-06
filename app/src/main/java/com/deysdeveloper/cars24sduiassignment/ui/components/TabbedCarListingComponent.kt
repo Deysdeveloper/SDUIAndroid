@@ -48,10 +48,11 @@ private val SpecChipBg = Color(0xFFF5F5F5)
 
 @Composable
 fun TabbedCarListingComponent(props: TabbedCarListingProps, onAction: (Action) -> Unit) {
-    var selectedTabId by rememberSaveable {
-        mutableStateOf(props.tabs.firstOrNull()?.id ?: "")
-    }
-    val activeCars = props.carsByTab[selectedTabId] ?: emptyList()
+    val initialTab = props.defaultTab.ifBlank { props.tabs.firstOrNull()?.id ?: "" }
+    var selectedTabId by rememberSaveable { mutableStateOf(initialTab) }
+
+    // Cars are now nested inside each tab object
+    val activeCars = props.tabs.find { it.id == selectedTabId }?.cars ?: emptyList()
 
     Column(
         modifier = Modifier
@@ -59,18 +60,33 @@ fun TabbedCarListingComponent(props: TabbedCarListingProps, onAction: (Action) -
             .background(Color.White)
             .padding(vertical = 12.dp)
     ) {
-        // Section title
-        Text(
-            text = props.title,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = props.title,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            if (props.viewAllAction != null) {
+                Text(
+                    text = "View all",
+                    fontSize = 13.sp,
+                    color = Cars24Blue,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.clickable { props.viewAllAction.let(onAction) }
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Tab selector row
+        // Tab selector
         Row(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
@@ -102,7 +118,6 @@ fun TabbedCarListingComponent(props: TabbedCarListingProps, onAction: (Action) -
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Car cards — Column (not LazyColumn) to avoid nested scroll conflict
         Column(
             modifier = Modifier.padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -110,13 +125,23 @@ fun TabbedCarListingComponent(props: TabbedCarListingProps, onAction: (Action) -
             activeCars.forEach { car ->
                 CarListingCard(car = car, onAction = onAction)
             }
+            if (activeCars.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 24.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("No cars available", color = Color.Gray, fontSize = 13.sp)
+                }
+            }
         }
     }
 }
 
 @Composable
 private fun CarListingCard(car: Car, onAction: (Action) -> Unit) {
-    var isFavorite by rememberSaveable(car.id) { mutableStateOf(car.isFavorite) }
+    var isFavorite by rememberSaveable(car.id) { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -126,75 +151,88 @@ private fun CarListingCard(car: Car, onAction: (Action) -> Unit) {
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
-        Row(modifier = Modifier.padding(10.dp)) {
-            // Car image
-            AsyncImage(
-                model = car.imageUrl,
-                contentDescription = car.title,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(RoundedCornerShape(8.dp))
-            )
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            // Details
-            Column(modifier = Modifier.weight(1f)) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.Top
+        Column {
+            // Badge (e.g. "Cars24 Owned stock")
+            if (car.badge != null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Cars24Blue.copy(alpha = 0.08f))
+                        .padding(horizontal = 12.dp, vertical = 4.dp)
                 ) {
-                    Text(
-                        text = car.title,
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f)
-                    )
-
-                    // Heart / favourite toggle
-                    IconButton(
-                        onClick = { isFavorite = !isFavorite },
-                        modifier = Modifier.size(28.dp)
-                    ) {
-                        Icon(
-                            imageVector = if (isFavorite) Icons.Filled.Favorite
-                                          else Icons.Outlined.FavoriteBorder,
-                            contentDescription = "Favourite",
-                            tint = if (isFavorite) Cars24Red else Color.Gray,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
+                    Text(car.badge, fontSize = 11.sp, color = Cars24Blue, fontWeight = FontWeight.Medium)
                 }
+            }
 
-                Spacer(modifier = Modifier.height(6.dp))
+            Row(modifier = Modifier.padding(10.dp)) {
+                AsyncImage(
+                    model = car.imageUrl,
+                    contentDescription = car.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                )
 
-                // Spec chips
-                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    car.specs.take(3).forEach { spec ->
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(SpecChipBg)
-                                .padding(horizontal = 6.dp, vertical = 3.dp)
-                        ) {
-                            Text(text = spec, fontSize = 10.sp, color = Color(0xFF555555))
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.Top
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = car.name,
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black,
+                                maxLines = 2,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                            if (car.subtitle != null) {
+                                Text(
+                                    text = car.subtitle,
+                                    fontSize = 11.sp,
+                                    color = Color.Gray,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                        }
+                        IconButton(onClick = { isFavorite = !isFavorite }, modifier = Modifier.size(28.dp)) {
+                            Icon(
+                                imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                                contentDescription = "Favourite",
+                                tint = if (isFavorite) Cars24Red else Color.Gray,
+                                modifier = Modifier.size(20.dp)
+                            )
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                        car.specs.take(3).forEach { spec ->
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(4.dp))
+                                    .background(SpecChipBg)
+                                    .padding(horizontal = 6.dp, vertical = 3.dp)
+                            ) {
+                                Text(text = spec, fontSize = 10.sp, color = Color(0xFF555555))
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(text = car.price, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                    if (car.emi != null) {
+                        Text(text = car.emi, fontSize = 11.sp, color = Color.Gray)
+                    }
                 }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = car.price,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
             }
         }
     }

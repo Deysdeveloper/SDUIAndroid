@@ -8,19 +8,6 @@ import com.deysdeveloper.cars24sduiassignment.data.model.Action
 import com.deysdeveloper.cars24sduiassignment.data.model.ActionType
 import com.deysdeveloper.cars24sduiassignment.navigation.navigateSafe
 
-/**
- * Central dispatcher for all tap actions in the SDUI system.
- *
- * Every tappable element passes its [Action] here — no composable
- * calls NavController or starts Intents directly.
- *
- * @param action            The action object parsed from JSON props.
- * @param navController     Used for [ActionType.NAVIGATE] actions.
- * @param context           Used for [ActionType.CALL] (dial intent).
- * @param onFilterSections  Called with the raw comma-separated section IDs
- *                          string for [ActionType.FILTER_SECTIONS]; the
- *                          ViewModel converts it to a Set<String>.
- */
 fun handleAction(
     action: Action,
     navController: NavController,
@@ -34,18 +21,20 @@ fun handleAction(
         }
 
         ActionType.CALL -> {
-            val phone = action.params?.get("phone") ?: return
-            val dialIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
-            context.startActivity(dialIntent)
+            // New schema: phone as top-level field; old schema: phone in params map
+            val phone = action.phone ?: action.params?.get("phone") ?: return
+            context.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone")))
         }
 
         ActionType.FILTER_SECTIONS -> {
-            val sections = action.params?.get("sections") ?: ""
+            // New schema: target_ids list; old schema: sections in params map
+            val sections = when {
+                !action.targetIds.isNullOrEmpty() -> action.targetIds.joinToString(",")
+                else -> action.params?.get("sections") ?: ""
+            }
             onFilterSections(sections)
         }
 
-        else -> {
-            // Unknown action type — silently no-op, never crash.
-        }
+        else -> { /* Unknown action type — silently no-op */ }
     }
 }

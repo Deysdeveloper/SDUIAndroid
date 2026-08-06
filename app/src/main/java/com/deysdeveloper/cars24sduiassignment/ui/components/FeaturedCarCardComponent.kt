@@ -46,7 +46,6 @@ private val PriceText = Color(0xFF2F855A)
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun FeaturedCarCardComponent(props: FeaturedCarCardProps, onAction: (Action) -> Unit) {
-    // Blue background wrapper — creates visual continuity with header + tab bar
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,7 +74,7 @@ fun FeaturedCarCardComponent(props: FeaturedCarCardProps, onAction: (Action) -> 
                     )
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "BUY USED CAR",
+                            text = props.tag,
                             color = Cars24Blue,
                             fontWeight = FontWeight.Bold,
                             fontSize = 10.sp,
@@ -89,22 +88,24 @@ fun FeaturedCarCardComponent(props: FeaturedCarCardProps, onAction: (Action) -> 
                             lineHeight = 17.sp,
                             color = Color.Black
                         )
-                        Spacer(Modifier.height(4.dp))
-                        Text(
-                            text = "Inspected · Certified · Best Price",
-                            color = Color.Gray,
-                            fontSize = 11.sp
-                        )
+                        if (props.subtitle.isNotBlank()) {
+                            Spacer(Modifier.height(2.dp))
+                            Text(
+                                text = props.subtitle,
+                                color = Color.Gray,
+                                fontSize = 11.sp
+                            )
+                        }
                         Spacer(Modifier.height(6.dp))
                         // Spec chips
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            props.chips.forEach { chip ->
+                            props.specs.forEach { spec ->
                                 Surface(
                                     color = Color(0xFFF0F0F0),
                                     shape = RoundedCornerShape(4.dp)
                                 ) {
                                     Text(
-                                        text = chip,
+                                        text = spec,
                                         fontSize = 10.sp,
                                         modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                     )
@@ -122,28 +123,30 @@ fun FeaturedCarCardComponent(props: FeaturedCarCardProps, onAction: (Action) -> 
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Price badge
-                    Surface(
-                        color = PriceBadgeBg,
-                        border = BorderStroke(1.dp, PriceBadgeBorder),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text(
-                            text = "₹ ${props.price}",
-                            color = PriceText,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                        )
+                    if (props.price.isNotBlank()) {
+                        Surface(
+                            color = PriceBadgeBg,
+                            border = BorderStroke(1.dp, PriceBadgeBorder),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Text(
+                                text = props.price,
+                                color = PriceText,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 12.sp,
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                            )
+                        }
+                    } else {
+                        Spacer(Modifier.weight(1f))
                     }
 
-                    // CTA link + circle arrow
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.clickable { props.action?.let(onAction) }
                     ) {
                         Text(
-                            text = props.ctaLabel,
+                            text = props.ctaText,
                             color = Cars24Blue,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 13.sp
